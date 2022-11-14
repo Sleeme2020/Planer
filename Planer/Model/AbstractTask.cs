@@ -22,6 +22,7 @@ namespace Planer.Model
         public People? People { get; set; }
         public int PeopleId { get; set; }
 
+
         public List<ChekPoint>? ChekPoints { get; set; }
 
         public AbstractTask():this("Имя собития")
@@ -44,6 +45,11 @@ namespace Planer.Model
         {
             chekPoint.AbstractTask = this;
             ChekPoints.Add(chekPoint);
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}";
         }
 
     }

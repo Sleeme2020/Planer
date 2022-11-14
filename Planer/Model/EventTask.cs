@@ -34,5 +34,10 @@ namespace Planer.Model
                 throw new ArgumentException("Не соответствует ChekPointEvent");
 
         }
+
+        public override string ToString()
+        {
+            return base.ToString()+ $" {Date}";
+        }
     }
 }

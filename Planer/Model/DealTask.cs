@@ -27,6 +27,10 @@ namespace Planer.Model
 
         }
 
+        public override string ToString()
+        {
+            return base.ToString()+$" {Start} - {End}";
+        }
 
     }
 }
