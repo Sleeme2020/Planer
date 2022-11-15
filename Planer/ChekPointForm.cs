@@ -16,5 +16,16 @@ namespace Planer
         {
             InitializeComponent();
         }
+
+        public ChekPointForm(bool IsDeal):this()
+        {
+            monthCalendar1.Visible = IsDeal;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            Close();
+        }
     }
 }

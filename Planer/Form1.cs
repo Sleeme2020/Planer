@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Planer.AppContext;
 using Planer.Model;
+using System.Linq;
 
 namespace Planer
 {
@@ -10,8 +11,8 @@ namespace Planer
         public Form1()
         {          
             InitializeComponent();
-            SingleTon.DB = new AppDb();
-            updatePanel();
+            //SingleTon.DB = new AppDb();
+            updatePanel(null,null);
 
         }
 
@@ -41,9 +42,9 @@ namespace Planer
                     };
                     SingleTon.DB.Add(abstractTask);
                 }
-
-                SingleTon.DB.SaveChanges();
                 
+                SingleTon.DB.SaveChanges();
+                updatePanel(null, null);
             }
             
             
@@ -51,10 +52,12 @@ namespace Planer
 
         private void button2_Click(object sender, EventArgs e)
         {
+
             ChekPointForm chekPointForm = new ChekPointForm();
             if(chekPointForm.ShowDialog()==DialogResult.OK)
             {
 
+                
             }
         }
 
@@ -76,38 +79,81 @@ namespace Planer
 
 
 
-        void updatePanel()
+        void updatePanel(object sender, DateRangeEventArgs e)
         {
-            Func<AbstractTask, bool> fuctionload = (u) => {
-            if(u is EventTask)
-                {
-                    if ((u as EventTask).Date > monthCalendar1.SelectionStart && (u as EventTask).Date < monthCalendar1.SelectionEnd)
-                        return true;
-                    else
-                        return false;
-                }
-            if(u is DealTask)
-                {
-                    if ((u as DealTask).Start >= monthCalendar1.SelectionStart && (u as DealTask).End <= monthCalendar1.SelectionEnd)
-                        return true;
-                    else
-                        return false;
-                }
-            return false;           
+            clearList();
+            var tasks = SingleTon.DB.Tasks
+                .Where(u => ((u as DealTask).Start >= monthCalendar1.SelectionStart && (u as DealTask).End <= monthCalendar1.SelectionEnd) 
+                || ((u as EventTask).Date > monthCalendar1.SelectionStart && (u as EventTask).Date < monthCalendar1.SelectionEnd));
+            //foreach (var task in tasks)
+            //{
+            //  ListViewItem item = new ListViewItem();
+            //    item.SubItems.Add(task.ToString());
+            //   listView1.Items.Add(item);
+            //}
+            BuildListViewPlaner(tasks);
+        }
+        void clearList()
+        {
             
-            };            
-            var tasks = SingleTon.DB.Tasks.Where(u=> fuctionload(u));
-            foreach (var task in tasks)
+        }
+
+        public void BuildListViewPlaner( IQueryable<AbstractTask>? queryable)
+        {
+
+            var colect = queryable.Select(u =>
+            new { Id = u.Id,
+                Name = u.ToString(),
+                Date = (u as DealTask).Start == null ? (u as EventTask).Date: (u as DealTask).Start
+            }).GroupBy(u=>u.Date);
+            foreach(var item in colect)
             {
-                //ListViewItem item = new ListViewItem();
-                //item.SubItems.Add(task.ToString());
-                listView1.Items.Add(task.ToString());
+                foreach(var task in item)
+                {
+
+                }
+
+
+
+                //DateTime date = (item as DealTask)?.Start ?? (item as EventTask).Date;
+                //switch( date.DayOfWeek)
+                //{
+                //    case DayOfWeek.Monday:
+                //        listBox1.Items.Add(item);
+                //        break;
+                //    case DayOfWeek.Tuesday:
+                //        listBox2.Items.Add(item);
+                //        break;
+
+                //    case DayOfWeek.Wednesday:
+                //        listBox3.Items.Add(item);
+                //        break;
+
+                //    case DayOfWeek.Thursday:
+                //        listBox4.Items.Add(item);
+                //        break;
+
+                //    case DayOfWeek.Friday:
+                //        listBox5.Items.Add(item);
+                //        break;
+
+                //    case DayOfWeek.Saturday:
+                //        listBox6.Items.Add(item);
+                //        break;
+                //    case DayOfWeek.Sunday:
+                //        listBox7.Items.Add(item);
+                //        break;
+
+                //}
+                
+                
+
             }
         }
 
-
-
-
-
+        private void listBox1_Click(object sender, EventArgs e)
+        {
+            checkedListBox1.Items.AddRange(SingleTon.DB.ChekPoints.Where(u=>u.AbstractTask==(AbstractTask)(sender as ListBox).SelectedItem).ToArray());
+        }
     }
 }

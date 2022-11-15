@@ -9,6 +9,10 @@ namespace Planer
 {
     public static class SingleTon
     {
+        static SingleTon()
+        {
+            DB = new AppDb();
+        }
         public static AppDb DB { get; set; }
     }
 }
