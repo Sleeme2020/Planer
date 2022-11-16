@@ -76,6 +76,6 @@
         #endregion
         private Button button1;
         public TextBox textBox1;
-        private MonthCalendar monthCalendar1;
+        public MonthCalendar monthCalendar1;
     }
 }

@@ -52,12 +52,26 @@ namespace Planer
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-            ChekPointForm chekPointForm = new ChekPointForm();
+            ChekPointForm chekPointForm;
+            var IsDeal = false;
+            if (dataGridView1.SelectedCells[0].Value.GetType() == typeof(DealTask))
+                IsDeal = true;                
+           chekPointForm = new ChekPointForm(IsDeal);          
+            
             if(chekPointForm.ShowDialog()==DialogResult.OK)
             {
+                ChekPoint chekPoint;
+                if (IsDeal)
+                {
+                    chekPoint = new ChekPointDeal() {AbstractTask= (AbstractTask)dataGridView1.SelectedCells[0].Value, Name = chekPointForm.textBox1.Text, Start = chekPointForm.monthCalendar1.SelectionStart, End = chekPointForm.monthCalendar1.SelectionEnd };
+                }
+                else
+                    chekPoint = new ChekPointEvent() { AbstractTask = (AbstractTask)dataGridView1.SelectedCells[0].Value, Name = chekPointForm.textBox1.Text };
 
-                
+                SingleTon.DB.Add(chekPoint);
+                SingleTon.DB.SaveChanges();
+
+                dataGridView1_CellContentClick(dataGridView1, null);
             }
         }
 
@@ -82,35 +96,70 @@ namespace Planer
         void updatePanel(object sender, DateRangeEventArgs e)
         {
             clearList();
-            var tasks = SingleTon.DB.Tasks
-                .Where(u => ((u as DealTask).Start >= monthCalendar1.SelectionStart && (u as DealTask).End <= monthCalendar1.SelectionEnd) 
-                || ((u as EventTask).Date > monthCalendar1.SelectionStart && (u as EventTask).Date < monthCalendar1.SelectionEnd));
+            
             //foreach (var task in tasks)
             //{
             //  ListViewItem item = new ListViewItem();
             //    item.SubItems.Add(task.ToString());
             //   listView1.Items.Add(item);
             //}
-            BuildListViewPlaner(tasks);
+            BuildListViewPlaner();
         }
         void clearList()
         {
             
         }
 
-        public void BuildListViewPlaner( IQueryable<AbstractTask>? queryable)
+        public void BuildListViewPlaner()
         {
-
-            var colect = queryable.Select(u =>
-            new { Id = u.Id,
-                Name = u.ToString(),
-                Date = (u as DealTask).Start == null ? (u as EventTask).Date: (u as DealTask).Start
-            }).GroupBy(u=>u.Date);
-            foreach(var item in colect)
-            {
-                foreach(var task in item)
+            var eventtask = SingleTon.DB.EventTasks.Where(u => u.Date > monthCalendar1.SelectionStart && u.Date < monthCalendar1.SelectionEnd).ToList();
+            var dealtask = SingleTon.DB.DealTasks.Where(u => u.Start >= monthCalendar1.SelectionStart && u.End <= monthCalendar1.SelectionEnd).ToList();
+            var task = eventtask.Select
+                (u => new
                 {
+                    Id = u.Id,
+                    Date = u.Date
+                }).Union(dealtask.Select(u => new
+                {
+                    Id = u.Id,
+                    Date = u.Start
+                }))                
+                .GroupBy(u=>u.Date.DayOfWeek);
+            //var tasks = SingleTon.DB.EventTasks.Where(u => u.Date > monthCalendar1.SelectionStart && u.Date < monthCalendar1.SelectionEnd)
+            //    .Select(
+            //    u => new
+            //    {
+            //        Id = u.Id,
+            //        Date = u.Date
+            //    }
+            //    ).Union(
+            //    SingleTon.DB.DealTasks.Where(u => u.Start >= monthCalendar1.SelectionStart && u.End <= monthCalendar1.SelectionEnd)
+            //    .Select
+            //    (
+            //        u => new
+            //        {
+            //            Id = u.Id,
+            //            Date = u.Start
+            //        }
+            //        )
+            //    ).GroupBy(u => u.Date.DayOfWeek);
 
+
+            foreach (var item in task)
+            {
+
+                if (dataGridView1.Rows.Count < item.Count())
+                {
+                    for (int i = item.Count(); dataGridView1.Rows.Count < item.Count(); ++i)
+                    {
+                        dataGridView1.Rows.Add();
+                    }
+                }
+                int j = 0;
+                foreach (var tas in item)
+                {
+                    dataGridView1.Rows[j].Cells["Column" + ((int)item.Key).ToString()].Value = SingleTon.DB.Tasks.Where(u => u.Id == tas.Id).FirstOrDefault();
+                    j++;
                 }
 
 
@@ -145,15 +194,42 @@ namespace Planer
                 //        break;
 
                 //}
-                
-                
+
+
 
             }
         }
 
-        private void listBox1_Click(object sender, EventArgs e)
+       
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            checkedListBox1.Items.AddRange(SingleTon.DB.ChekPoints.Where(u=>u.AbstractTask==(AbstractTask)(sender as ListBox).SelectedItem).ToArray());
+            checkedListBox1.Items.Clear();
+            ChekPoint[] chek = SingleTon.DB.ChekPoints
+                .Where(u=>u.AbstractTaskID == ((AbstractTask)((sender as DataGridView).SelectedCells[0].Value)).Id).ToArray();
+            foreach(ChekPoint item in chek)
+            {
+               
+                checkedListBox1.Items.Add(item, item.Complite);
+                
+            }
         }
+
+        private void checkedListBox1_Click(object sender, EventArgs e)
+        {
+            foreach(var chek in checkedListBox1.Items)
+                (chek as ChekPoint).Complite = false;
+            foreach (var chek in checkedListBox1.CheckedItems)
+            {
+                (chek as ChekPoint).Complite = true;
+                
+            }
+            foreach (var chek in checkedListBox1.Items)
+                SingleTon.DB.Update((chek as ChekPoint));
+
+            SingleTon.DB.SaveChanges();
+        }
+
+ 
     }
 }

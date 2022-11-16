@@ -26,4 +26,8 @@
     <Folder Include="Patterns\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PlanerModel\PlanerModel.csproj" />
+  </ItemGroup>
+
 </Project>

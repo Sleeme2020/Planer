@@ -10,6 +10,10 @@ namespace Planer.Model
     {
         public ChekPointEvent():base(){}
         public ChekPointEvent(string name) : base(name) { }
-       
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }
