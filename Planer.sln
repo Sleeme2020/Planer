@@ -5,7 +5,11 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planer", "Planer\Planer.csproj", "{40A8484B-3B64-4CDB-B5DF-DB563325EFA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanerModel", "PlanerModel\PlanerModel.csproj", "{58E9E2D9-BBD3-432A-9EB0-64B269BBFFD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlanerModel", "PlanerModel\PlanerModel.csproj", "{58E9E2D9-BBD3-432A-9EB0-64B269BBFFD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlanerWPF", "PlanerWPF\PlanerWPF.csproj", "{64D46149-8720-42E4-8956-A2F66C0C663F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyModel", "ProxyModel\ProxyModel.csproj", "{192320FB-4E48-4ED5-9519-5B7DAD4B970F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{58E9E2D9-BBD3-432A-9EB0-64B269BBFFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58E9E2D9-BBD3-432A-9EB0-64B269BBFFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58E9E2D9-BBD3-432A-9EB0-64B269BBFFD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D46149-8720-42E4-8956-A2F66C0C663F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D46149-8720-42E4-8956-A2F66C0C663F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D46149-8720-42E4-8956-A2F66C0C663F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D46149-8720-42E4-8956-A2F66C0C663F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{192320FB-4E48-4ED5-9519-5B7DAD4B970F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{192320FB-4E48-4ED5-9519-5B7DAD4B970F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{192320FB-4E48-4ED5-9519-5B7DAD4B970F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{192320FB-4E48-4ED5-9519-5B7DAD4B970F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

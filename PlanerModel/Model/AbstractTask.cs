@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Planer.Model
 {
-    public abstract class AbstractTask
+    public abstract class AbstractTask : ITask
     {
         public int Id
         {
@@ -39,10 +39,15 @@ namespace Planer.Model
         {
             People = people;
         }
-       
+
+
+        void ITask.AddChekPoint(Planer.Model.ChekPoint chekPoint)
+        {
+            this.AddChekPoint(chekPoint);
+        }
 
         public virtual void AddChekPoint(ChekPoint chekPoint)
-        {
+        {            
             chekPoint.AbstractTask = this;
             ChekPoints.Add(chekPoint);
         }
