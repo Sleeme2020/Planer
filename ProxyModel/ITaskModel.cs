@@ -9,7 +9,7 @@ namespace ProxyModel
 {
     public interface ITaskModel
     {
-        ITask[] GetTask();
+        AbstractTask[] GetTask();
         ITask? GetTask(int id);
         bool SetTask(ITask task);
         bool SetTask(ITask[] tasks);

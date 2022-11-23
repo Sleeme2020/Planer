@@ -9,7 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ProxyModel
 {
-    internal class TaskModel : ITaskModel
+    public class TaskModel : ITaskModel
     {
         AppContext DB;
 
@@ -101,7 +101,7 @@ namespace ProxyModel
             throw new ArgumentException();
         }
 
-        public ITask[] GetTask()
+        public AbstractTask[] GetTask()
         {
             DB.Tasks.Load();
             return DB.Tasks.ToArray();

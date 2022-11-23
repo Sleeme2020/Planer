@@ -6,8 +6,17 @@
         xmlns:local="clr-namespace:PlanerWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="708" Width="1103">
+
+    <Window.Resources>
+        <DataTemplate x:Key="listTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding ViewTask.Id}"/>
+                <TextBlock Text="{Binding ViewTask.Name}"/>
+                <TextBlock Text="{Binding ViewTask.Date}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid Margin="0,-6,0,6">
-        <Calendar HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
         <StackPanel Margin="450,10,10,520" Background="#FFE4E4E4">
             <CheckBox Content="CheckBox"/>
         </StackPanel>
@@ -22,19 +31,32 @@
                 <Label Content="Воскресение" FontSize="20" Margin="30,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10,10,10,10" Height="408">
-                <WrapPanel Width="150" Background="#FF8C7474" Orientation="Vertical"/>
+                <!--<WrapPanel Width="150" Background="#FF8C7474" Orientation="Vertical">
+                    
+                </WrapPanel>
                 <WrapPanel Width="150" Background="#FF8C7474" Orientation="Vertical" />
                 <WrapPanel Width="150" Background="#FF8C7474" Orientation="Vertical" />
                 <WrapPanel Width="150" Background="#FF8C7474" Orientation="Vertical"/>
                 <WrapPanel Width="150" Background="#FF8C7474" Orientation="Vertical"/>
                 <WrapPanel Width="150" Background="#FFCCA2A2" Orientation="Vertical"/>
-                <WrapPanel Width="150" Background="#FFCCA2A2" Orientation="Vertical"/>
+                <WrapPanel Width="150" Background="#FFCCA2A2" Orientation="Vertical"/>-->
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+
             </StackPanel>
             
         </StackPanel>
         <Button Content="Создать Событие" HorizontalAlignment="Left" Margin="256,16,0,0" VerticalAlignment="Top" Height="38" Width="119"/>
         <Button Content="Добавить чек поинт" HorizontalAlignment="Left" Margin="256,73,0,0" VerticalAlignment="Top" Height="47" Width="119"/>
         <Button Content="Добавить Человека" HorizontalAlignment="Left" Margin="256,142,0,0" VerticalAlignment="Top" Height="36" Width="119"/>
+        <DatePicker Name="StartDatePic" HorizontalAlignment="Left" Margin="17,23,0,0" VerticalAlignment="Top" Width="187" SelectedDate="{Binding SelectStartDate}"/>
+        <DatePicker HorizontalAlignment="Left" Margin="17,73,0,0" VerticalAlignment="Top" Height="23" Width="187"  SelectedDate="{Binding SelectEndDate}" DisplayDateStart="{Binding SelectedDate, ElementName=StartDatePic}"/>
 
     </Grid>
 </Window>
