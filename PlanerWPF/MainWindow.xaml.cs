@@ -26,5 +26,6 @@ namespace PlanerWPF
             InitializeComponent();
             DataContext = new MainViewModel();
         }
+
     }
 }

@@ -10,15 +10,22 @@
     <Window.Resources>
         <DataTemplate x:Key="listTemplate">
             <StackPanel>
-                <TextBlock Text="{Binding ViewTask.Id}"/>
-                <TextBlock Text="{Binding ViewTask.Name}"/>
-                <TextBlock Text="{Binding ViewTask.Date}"/>
+                <TextBlock Width="140" Text="{Binding Path=Id}"/>
+                <TextBlock Width="140" Text="{Binding Path=Name}"/>
+                <TextBlock Width="140" Text="{Binding Path=Date}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="listTemplate2">
+            <StackPanel>
+                <CheckBox Width="140" Content="{Binding Path=Name}" IsChecked="{Binding Path=Complite}" Command="{Binding EditChekPoint}" CommandParameter="{Binding this}" />
+                               
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
     <Grid Margin="0,-6,0,6">
         <StackPanel Margin="450,10,10,520" Background="#FFE4E4E4">
-            <CheckBox Content="CheckBox"/>
+            <ListBox ItemsSource="{Binding ChekPoints}" Height="162" ItemTemplate="{StaticResource listTemplate2}" />
+
         </StackPanel>
         <StackPanel Orientation="Vertical" Margin="10,200,10,10" Background="#FFE8E3E3">
             <StackPanel Orientation="Horizontal" Height="50" >
@@ -30,7 +37,7 @@
                 <Label Content="Суббота" FontSize="20" Margin="70,0,0,0" />
                 <Label Content="Воскресение" FontSize="20" Margin="30,0,0,0"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="10,10,10,10" Height="408">
+            <StackPanel Orientation="Horizontal" Margin="10,10,10,10" Height="408" >
                 <!--<WrapPanel Width="150" Background="#FF8C7474" Orientation="Vertical">
                     
                 </WrapPanel>
@@ -40,14 +47,13 @@
                 <WrapPanel Width="150" Background="#FF8C7474" Orientation="Vertical"/>
                 <WrapPanel Width="150" Background="#FFCCA2A2" Orientation="Vertical"/>
                 <WrapPanel Width="150" Background="#FFCCA2A2" Orientation="Vertical"/>-->
-                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
-                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
-                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
-                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
-                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
-                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
-                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
-                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" />
+                <ListBox Width="150" ItemsSource="{Binding Monday}" ItemTemplate="{StaticResource listTemplate}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
+                <ListBox Width="150" ItemsSource="{Binding Tuesday}" ItemTemplate="{StaticResource listTemplate}" SelectedItem="{Binding SelectedItem , Mode=OneWayToSource}"/>
+                <ListBox Width="150" ItemsSource="{Binding Wednesday}" ItemTemplate="{StaticResource listTemplate}" SelectedItem="{Binding SelectedItem , Mode=OneWayToSource}"/>
+                <ListBox Width="150" ItemsSource="{Binding Thursday}" ItemTemplate="{StaticResource listTemplate}" SelectedItem="{Binding SelectedItem , Mode=OneWayToSource}"/>
+                <ListBox Width="150" ItemsSource="{Binding Friday}" ItemTemplate="{StaticResource listTemplate}" SelectedItem="{Binding SelectedItem , Mode=OneWayToSource}"/>
+                <ListBox Width="150" ItemsSource="{Binding Saturday}" ItemTemplate="{StaticResource listTemplate}" SelectedItem="{Binding SelectedItem , Mode=OneWayToSource}"/>
+                <ListBox Width="150" ItemsSource="{Binding Sunday}" ItemTemplate="{StaticResource listTemplate}" SelectedItem="{Binding SelectedItem , Mode=OneWayToSource}"/>                
 
             </StackPanel>
             
