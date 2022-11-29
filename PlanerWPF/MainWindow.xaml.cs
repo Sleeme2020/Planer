@@ -21,11 +21,18 @@ namespace PlanerWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            viewModel = new MainViewModel();
+            DataContext = viewModel;
         }
 
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var ob = (sender as CheckBox)?.DataContext;
+            viewModel.UpdChekPoint(ob);
+        }
     }
 }

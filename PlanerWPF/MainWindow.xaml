@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:PlanerWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="708" Width="1103">
@@ -15,10 +16,19 @@
                 <TextBlock Width="140" Text="{Binding Path=Date}"/>
             </StackPanel>
         </DataTemplate>
-        <DataTemplate x:Key="listTemplate2">
-            <StackPanel>
-                <CheckBox Width="140" Content="{Binding Path=Name}" IsChecked="{Binding Path=Complite}" Command="{Binding EditChekPoint}" CommandParameter="{Binding this}" />
-                               
+        <DataTemplate  x:Key="listTemplate2">
+            <StackPanel >
+                <CheckBox DataContext="{Binding}" Width="140" Content="{Binding Path=Name}" IsChecked="{Binding Path=Complite , UpdateSourceTrigger=PropertyChanged}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction Command="{Binding EditChekPoint}" CommandParameter="{Binding this}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction Command="{Binding EditChekPoint}" CommandParameter="{Binding this}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </CheckBox>
+
             </StackPanel>
         </DataTemplate>
     </Window.Resources>

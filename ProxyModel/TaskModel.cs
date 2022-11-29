@@ -162,6 +162,7 @@ namespace ProxyModel
         public void UpdateChekPoint(ChekPoint chekPoint)
         {
             DB.ChekPoints.Update(chekPoint);
+            DB.SaveChanges();
         }
 
         public bool UpdateTask(ITask task)

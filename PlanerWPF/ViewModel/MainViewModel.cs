@@ -51,6 +51,15 @@ namespace PlanerWPF.ViewModel
             }
         }
 
+
+
+        public void UpdChekPoint(object? chekPoint)
+        {
+            if(chekPoint is ChekPoint)
+            TaskModel.UpdateChekPoint(chekPoint as ChekPoint);
+        }
+
+
         List<IGrouping<DayOfWeek, ViewTask>> _viewtasks;
         DateTime _SelectStartDate;
         DateTime _SelectEndDate;
