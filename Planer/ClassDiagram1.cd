@@ -1,59 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Planer.Model.AbstractTask">
-    <Position X="4" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAEIAAAAAAAAAAAQQAQAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\AbstractTask.cs</FileName>
-    </TypeIdentifier>
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="People" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Planer.Model.DealTask">
     <Position X="3" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAACAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\DealTask.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Planer.Model.EventTask">
     <Position X="6" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAIAAQAAAAAAAAABAAAAAAAAAAA=</HashCode>
-      <FileName>Model\EventTask.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Planer.Model.People">
     <Position X="11.5" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAEAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\People.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Planer.Model.ChekPoint">
     <Position X="8.5" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAIAAAAAAAQAAAAAAAAAAACAAAAAEAA=</HashCode>
-      <FileName>Model\ChekPoint.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="AbstractTask" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Planer.Model.ChekPointDeal">
     <Position X="10" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\ChekPointDeal.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Planer.Model.ChekPointEvent">
     <Position X="6.75" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\ChekPointEvent.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -18,13 +18,13 @@
         </DataTemplate>
         <DataTemplate  x:Key="listTemplate2">
             <StackPanel >
-                <CheckBox DataContext="{Binding}" Width="140" Content="{Binding Path=Name}" IsChecked="{Binding Path=Complite , UpdateSourceTrigger=PropertyChanged}" >
+                <CheckBox  Width="140" Content="{Binding Path=Name}" IsChecked="{Binding Path=Complite , UpdateSourceTrigger=PropertyChanged}" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Checked">
-                            <i:InvokeCommandAction Command="{Binding EditChekPoint}" CommandParameter="{Binding this}"/>
+                            <i:InvokeCommandAction Command="{Binding DataContext.ChekedChekPoint, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding Id}" />
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Unchecked">
-                            <i:InvokeCommandAction Command="{Binding EditChekPoint}" CommandParameter="{Binding this}"/>
+                            <i:InvokeCommandAction Command="{Binding DataContext.UnChekedChekPoint, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding Id}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </CheckBox>
@@ -68,9 +68,9 @@
             </StackPanel>
             
         </StackPanel>
-        <Button Content="Создать Событие" HorizontalAlignment="Left" Margin="256,16,0,0" VerticalAlignment="Top" Height="38" Width="119"/>
+        <Button Content="Создать Событие" HorizontalAlignment="Left" Margin="256,16,0,0" VerticalAlignment="Top" Height="38" Width="119" Click="Button_Click_1"/>
         <Button Content="Добавить чек поинт" HorizontalAlignment="Left" Margin="256,73,0,0" VerticalAlignment="Top" Height="47" Width="119"/>
-        <Button Content="Добавить Человека" HorizontalAlignment="Left" Margin="256,142,0,0" VerticalAlignment="Top" Height="36" Width="119"/>
+        <Button Content="Добавить Человека" HorizontalAlignment="Left" Margin="256,142,0,0" VerticalAlignment="Top" Height="36" Width="119" Click="Button_Click"/>
         <DatePicker Name="StartDatePic" HorizontalAlignment="Left" Margin="17,23,0,0" VerticalAlignment="Top" Width="187" SelectedDate="{Binding SelectStartDate}"/>
         <DatePicker HorizontalAlignment="Left" Margin="17,73,0,0" VerticalAlignment="Top" Height="23" Width="187"  SelectedDate="{Binding SelectEndDate}" DisplayDateStart="{Binding SelectedDate, ElementName=StartDatePic}"/>
 

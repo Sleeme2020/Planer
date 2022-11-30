@@ -179,6 +179,13 @@ namespace ProxyModel
             throw new ArgumentException();
         }
 
+        public void AddPeople(People people)
+        {
+            if (people != null)
+                DB.Peoples.Add(people);
+            DB.SaveChangesAsync();
+        }
+
         public bool UpdateTask(ITask[] tasks)
         {
             if(tasks is AbstractTask[])

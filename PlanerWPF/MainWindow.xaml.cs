@@ -29,10 +29,18 @@ namespace PlanerWPF
             DataContext = viewModel;
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var ob = (sender as CheckBox)?.DataContext;
-            viewModel.UpdChekPoint(ob);
+            NewHuman newHuman = new NewHuman();
+            newHuman.DataContext = viewModel;
+            newHuman.ShowDialog();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NewEvent newEvent = new NewEvent();
+            newEvent.DataContext = new EventViewModel() {OwnerContext=viewModel};
+            newEvent.ShowDialog();
         }
     }
 }

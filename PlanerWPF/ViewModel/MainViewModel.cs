@@ -1,5 +1,6 @@
 ﻿using Planer.Model;
 using PlanerWPF.Comand;
+using PlanerWPF.Interface;
 using ProxyModel;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Windows.Controls;
 
 namespace PlanerWPF.ViewModel
 {
-    internal class MainViewModel : INotifyPropertyChanged
+    internal class MainViewModel : INotifyPropertyChanged, IOwnerContext
     {
         #region События
         public void OnPropertyChanged([CallerMemberName] string prop = "")
@@ -37,28 +38,65 @@ namespace PlanerWPF.ViewModel
         #endregion
 
 
-        RelayCommand? _EditChekPoint;
-        public RelayCommand EditChekPoint
+        RelayCommand? _ChekedChekPoint;
+        public RelayCommand ChekedChekPoint
         {
             get
             {
-                return _EditChekPoint ??
-                  (_EditChekPoint = new RelayCommand((o) =>
+                return _ChekedChekPoint ??
+                  (_ChekedChekPoint = new RelayCommand((o) =>
                   {
-                      TaskModel.UpdateChekPoint(o as ChekPoint);
-
+                      if (o is not null)
+                      {
+                          var task =TaskModel.GetChekPoint(Convert.ToInt32(o));
+                          task.Complite = true;
+                          TaskModel.UpdateChekPoint(task);
+                      }
                   }));
             }
         }
 
+        RelayCommand? _UnChekedChekPoint;
+        public RelayCommand UnChekedChekPoint
+        {
+            get
+            {
+                return _UnChekedChekPoint ??
+                  (_UnChekedChekPoint = new RelayCommand((o) =>
+                  {
+                      if (o is not null)
+                      {
+                          var task = TaskModel.GetChekPoint(Convert.ToInt32(o));                          
+                          task.Complite = false;
+                          TaskModel.UpdateChekPoint(task);
+                      }
+                  }));
+            }
+        }
 
+       public string NewName { get; set; }
+        public string FirstName { get; set; }
 
         public void UpdChekPoint(object? chekPoint)
         {
             if(chekPoint is ChekPoint)
             TaskModel.UpdateChekPoint(chekPoint as ChekPoint);
         }
-
+        RelayCommand? _NewHuman;
+        public RelayCommand NewHuman
+        {
+            get
+            {
+                return _NewHuman ??
+                  (_NewHuman = new RelayCommand((o) =>
+                  {
+                      var human = new People { Name = NewName, FirstName = FirstName };
+                      TaskModel.AddPeople(human);
+                      NewName = "";
+                      FirstName = "";
+                  }));
+            }
+        }
 
         List<IGrouping<DayOfWeek, ViewTask>> _viewtasks;
         DateTime _SelectStartDate;
@@ -253,6 +291,8 @@ namespace PlanerWPF.ViewModel
             }
         }
 
+        
+
         public MainViewModel()
         {
             TaskModel = new();
@@ -287,5 +327,26 @@ namespace PlanerWPF.ViewModel
             //this.ViewTasks = )ViewTasks;
         }
 
+        public IOwnerContext OwnerContext { get; set ; }
+
+        public void GetViewContext(object? obj)
+        {
+            switch(obj)
+            {
+                case AbstractTask ab:
+                    TaskModel.UpdateTask(ab);
+                    UpdateTask();
+                    break;
+                case ChekPoint ab:
+                    TaskModel.UpdateChekPoint(ab);
+                    UpdateTask();
+                    break;
+
+
+                default:
+                    throw new NotImplementedException($"Not implement of type {obj?.GetType()}");
+                    
+            }
+        }
     }
 }
