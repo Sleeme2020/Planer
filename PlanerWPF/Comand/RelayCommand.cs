@@ -7,6 +7,8 @@ using System.Windows.Input;
 
 namespace PlanerWPF.Comand
 {
+
+
     internal class RelayCommand : ICommand
     {
         Action<object?> execute;

@@ -69,7 +69,7 @@
             
         </StackPanel>
         <Button Content="Создать Событие" HorizontalAlignment="Left" Margin="256,16,0,0" VerticalAlignment="Top" Height="38" Width="119" Click="Button_Click_1"/>
-        <Button Content="Добавить чек поинт" HorizontalAlignment="Left" Margin="256,73,0,0" VerticalAlignment="Top" Height="47" Width="119"/>
+        <Button Content="Добавить чек поинт" HorizontalAlignment="Left" Margin="256,73,0,0" VerticalAlignment="Top" Height="47" Width="119" Click="Button_Click_2"/>
         <Button Content="Добавить Человека" HorizontalAlignment="Left" Margin="256,142,0,0" VerticalAlignment="Top" Height="36" Width="119" Click="Button_Click"/>
         <DatePicker Name="StartDatePic" HorizontalAlignment="Left" Margin="17,23,0,0" VerticalAlignment="Top" Width="187" SelectedDate="{Binding SelectStartDate}"/>
         <DatePicker HorizontalAlignment="Left" Margin="17,73,0,0" VerticalAlignment="Top" Height="23" Width="187"  SelectedDate="{Binding SelectEndDate}" DisplayDateStart="{Binding SelectedDate, ElementName=StartDatePic}"/>

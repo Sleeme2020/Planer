@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using PlanerWPF.Patterns;
 
 namespace PlanerWPF.ViewModel
 {
@@ -33,7 +34,7 @@ namespace PlanerWPF.ViewModel
             public string Name { get; set; }
         }
 
-        TaskModel TaskModel{ get; set; }
+        
 
         #endregion
 
@@ -48,9 +49,9 @@ namespace PlanerWPF.ViewModel
                   {
                       if (o is not null)
                       {
-                          var task =TaskModel.GetChekPoint(Convert.ToInt32(o));
+                          var task =SingleTon.DataContext.GetChekPoint(Convert.ToInt32(o));
                           task.Complite = true;
-                          TaskModel.UpdateChekPoint(task);
+                          SingleTon.DataContext.UpdateChekPoint(task);
                       }
                   }));
             }
@@ -66,9 +67,9 @@ namespace PlanerWPF.ViewModel
                   {
                       if (o is not null)
                       {
-                          var task = TaskModel.GetChekPoint(Convert.ToInt32(o));                          
+                          var task = SingleTon.DataContext.GetChekPoint(Convert.ToInt32(o));                          
                           task.Complite = false;
-                          TaskModel.UpdateChekPoint(task);
+                          SingleTon.DataContext.UpdateChekPoint(task);
                       }
                   }));
             }
@@ -80,7 +81,7 @@ namespace PlanerWPF.ViewModel
         public void UpdChekPoint(object? chekPoint)
         {
             if(chekPoint is ChekPoint)
-            TaskModel.UpdateChekPoint(chekPoint as ChekPoint);
+            SingleTon.DataContext.UpdateChekPoint(chekPoint as ChekPoint);
         }
         RelayCommand? _NewHuman;
         public RelayCommand NewHuman
@@ -91,7 +92,7 @@ namespace PlanerWPF.ViewModel
                   (_NewHuman = new RelayCommand((o) =>
                   {
                       var human = new People { Name = NewName, FirstName = FirstName };
-                      TaskModel.AddPeople(human);
+                      SingleTon.DataContext.AddPeople(human);
                       NewName = "";
                       FirstName = "";
                   }));
@@ -198,7 +199,7 @@ namespace PlanerWPF.ViewModel
         }
         void UdpPoint()
         {
-            var point = TaskModel.GetChekPoint()
+            var point = SingleTon.DataContext.GetChekPoint()
                 .Where(u=>u.AbstractTaskID == SelectedItem?.Id).ToList();
             ChekPoints?.Clear();
             foreach (var item in point)
@@ -295,7 +296,7 @@ namespace PlanerWPF.ViewModel
 
         public MainViewModel()
         {
-            TaskModel = new();
+            //SingleTon.DataContext = new();
             UpdateTask();
             _SelectEndDate = DateTime.Now;
             _SelectStartDate = DateTime.Now;
@@ -305,7 +306,7 @@ namespace PlanerWPF.ViewModel
 
         public void UpdateTask()
         {
-            var task = TaskModel.GetTask();
+            var task = SingleTon.DataContext.GetTask();
             var eventtask = (task.Where(x => x.GetType() == typeof(EventTask))).ToArray();
             var eventtasknew = eventtask.Select(x => (EventTask)x).Where(x=>x.Date>_SelectStartDate && x.Date<=_SelectEndDate);
             var dealtask = (task.Where(x => x.GetType() == typeof(DealTask))).ToArray();
@@ -334,11 +335,11 @@ namespace PlanerWPF.ViewModel
             switch(obj)
             {
                 case AbstractTask ab:
-                    TaskModel.UpdateTask(ab);
+                    SingleTon.DataContext.UpdateTask(ab);
                     UpdateTask();
                     break;
-                case ChekPoint ab:
-                    TaskModel.UpdateChekPoint(ab);
+                case ChekPoint ab:                    
+                    SingleTon.DataContext.UpdateChekPoint(ab);
                     UpdateTask();
                     break;
 

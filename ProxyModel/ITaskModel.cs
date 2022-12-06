@@ -25,6 +25,8 @@ namespace ProxyModel
         void RemoveChekPoint(int id);
         void UpdateChekPoint(ChekPoint chekPoint);
         void AddChekPoint(ChekPoint chekPoint);
+        void AddPeople(People people);
+        People[] GetUser();
 
 
     }

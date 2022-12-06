@@ -161,7 +161,7 @@ namespace ProxyModel
 
         public void UpdateChekPoint(ChekPoint chekPoint)
         {
-            DB.ChekPoints.Update(chekPoint);
+            DB.ChekPoints.Add(chekPoint);
             DB.SaveChanges();
         }
 
@@ -186,6 +186,8 @@ namespace ProxyModel
             DB.SaveChangesAsync();
         }
 
+       
+
         public bool UpdateTask(ITask[] tasks)
         {
             if(tasks is AbstractTask[])
@@ -198,6 +200,14 @@ namespace ProxyModel
                 }
             }
             throw new ArgumentException();
+        }
+
+        
+
+        public People[] GetUser()
+        {
+            DB.Peoples.Load();
+            return DB.Peoples.ToArray();
         }
     }
 }

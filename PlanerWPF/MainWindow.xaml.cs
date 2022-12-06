@@ -42,5 +42,12 @@ namespace PlanerWPF
             newEvent.DataContext = new EventViewModel() {OwnerContext=viewModel};
             newEvent.ShowDialog();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            NewChekPoint newChekPoint = new NewChekPoint();
+            newChekPoint.DataContext = new ChekPointViewModel() { OwnerContext = viewModel, TaskId = viewModel.SelectedItem.Id };
+            newChekPoint.ShowDialog();
+        }
     }
 }
